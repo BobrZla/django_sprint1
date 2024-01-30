@@ -48,13 +48,13 @@ posts = [
 def index(request):
     template = 'blog/index.html'
     return render(request, template)
- 
+
 
 def post_detail(request, id):
     template = 'blog/detail.html'
     context = {'posts': posts[id]}
     return render(request, template, context)
 
+
 def category_posts(request, category_slug):
     return HttpResponse(f'<h1>Здесь же была ракета!{category_slug}</h1>')
-
