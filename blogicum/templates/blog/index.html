@@ -1,35 +1,37 @@
-'posts': {
-    'id': 0,
-    'location': 'Остров отчаянья',
-    'date': '30 сентября 1659 года',
-    'category': 'travel',
-    'text': '''Наш корабль, застигнутый в открытом море
-            страшным штормом, потерпел крушение.
-            Весь экипаж, кроме меня, утонул; я же,
-            несчастный Робинзон Крузо, был выброшен
-            полумёртвым на берег этого проклятого острова,
-            который назвал островом Отчаяния.''',
-},
+{% extends "base.html" %}
 
-{% for post in posts %}
+{% block title %}
+  Лента записей
+{% endblock %}
+
+{% block content %}
+<h1>Лента записей</h1>
+<!-- Перебираем в цикле все посты -->
+<hr>
 <article>
   <ul>
-    <li>
-      Место: {{ post.location }}
-      <!-- Место: Остров отчаянья -->              
-    </li>
-    <li>
-      Дата: {{ post.data }}
-      <!-- Дата: 25 октября 1659 года -->
-    </li>
-    <li>
-      Категория: <a href={{ post.category }}>{{ post.category }}</a>
-    </li>
-    </ul>          
+    {% for post_item in posts_list %}
+      <li>
+        Место: {{ post_item.location }}
+        <!-- Место: Остров отчаянья -->              
+      </li>
+      <li>
+        Дата: {{ post_item.date }}
+        <!-- Дата: 25 октября 1659 года -->
+      </li>
+      <li>
+        Категория: <a href="{% url 'blog:category_posts' post_item.category %}">{{ post_item.category }}</a>
+      </li>
+  </ul>          
     <!-- Первые 10 слов -->
     <p>
-        {{ post.description|truncatewords:10 }}
-      Всю ночь и весь день шел дождь и дул сильный ...
+      {{ post_item.text|truncatewords:10 }}
+      <!-- Всю ночь и весь день шел дождь и дул сильный ... -->
     </p>
-    <a href="detail.html">Читать полный текст</a>
+    <a href="{% url 'blog:post_detail' post_item.id %}">Читать полный текст</a>
 </article>
+      {% if not forloop.last %}
+        <hr>
+      {% endif %}
+    {% endfor %}                    
+{% endblock %}
