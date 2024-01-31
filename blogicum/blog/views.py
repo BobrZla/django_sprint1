@@ -44,10 +44,10 @@ posts = [
     },
 ]
 
-
 def index(request):
+    posts_rev = reversed(posts)
     template = 'blog/index.html'
-    context = {'posts_list': posts}
+    context = {'posts_list': posts_rev}
     return render(request, template, context)
 
 
