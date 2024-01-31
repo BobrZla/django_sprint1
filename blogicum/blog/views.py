@@ -44,6 +44,7 @@ posts = [
     },
 ]
 
+
 def index(request):
     posts_rev = reversed(posts)
     template = 'blog/index.html'
