@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import Http404, HttpResponse
 
 
 posts = [
@@ -45,17 +46,23 @@ posts = [
 ]
 
 
+id_list = []
+
+for keys in posts:
+     id_list.append(keys['id'])
+
 def index(request):
-    posts_rev = reversed(posts)
     template = 'blog/index.html'
-    context = {'posts_list': posts_rev}
+    context = {'posts_list': reversed(posts)}
     return render(request, template, context)
 
 
-def post_detail(request, id):
-    template = 'blog/detail.html'
-    context = {'post': posts[id]}
-    return render(request, template, context)
+def post_detail(request, post_id):
+    if post_id in id_list:   
+        template = 'blog/detail.html'
+        context = {'post': posts[post_id]}
+        return render(request, template, context)
+    raise Http404('Прости, такого поста нет, видимо его еще не написали =(')
 
 
 def category_posts(request, category_slug):

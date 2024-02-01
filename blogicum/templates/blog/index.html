@@ -5,33 +5,33 @@
 {% endblock %}
 
 {% block content %}
-<h1>Лента записей</h1>
-<!-- Перебираем в цикле все посты -->
-<hr>
-<article>
-  <ul>
-    {% for post_item in posts_list %}
-      <li>
-        Место: {{ post_item.location }}
-        <!-- Место: Остров отчаянья -->              
-      </li>
-      <li>
-        Дата: {{ post_item.date }}
-        <!-- Дата: 25 октября 1659 года -->
-      </li>
-      <li>
-        Категория: <a href="{% url 'blog:category_posts' post_item.category %}">{{ post_item.category }}</a>
-      </li>
-  </ul>          
-    <!-- Первые 10 слов -->
-    <p>
-      {{ post_item.text|truncatewords:10 }}
-      <!-- Всю ночь и весь день шел дождь и дул сильный ... -->
-    </p>
-    <a href="{% url 'blog:post_detail' post_item.id %}">Читать полный текст</a>
-</article>
-      {% if not forloop.last %}
-        <hr>
-      {% endif %}
-    {% endfor %}                    
+  <h1>Лента записей</h1>
+  <!-- Перебираем в цикле все посты -->
+  <hr>
+  {% for post_item in posts_list %}
+    <article>
+      <ul>
+        <li>
+          Место: {{ post_item.location }}
+            <!-- Место: Остров отчаянья -->              
+        </li>
+        <li>
+          Дата: {{ post_item.date }}
+          <!-- Дата: 25 октября 1659 года -->
+        </li>
+        <li>
+          Категория: <a href="{% url 'blog:category_posts' post_item.category %}">{{ post_item.category }}</a>
+        </li>
+      </ul>          
+      <!-- Первые 10 слов -->
+      <p>
+        {{ post_item.text|truncatewords:10 }}
+        <!-- Всю ночь и весь день шел дождь и дул сильный ... -->
+      </p>
+      <a href="{% url 'blog:post_detail' post_item.id %}">Читать полный текст</a>
+    </article>
+    {% if not forloop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}                    
 {% endblock %}
