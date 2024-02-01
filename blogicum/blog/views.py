@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import Http404, HttpResponse
+from django.http import Http404
 
 
 posts = [
@@ -49,7 +49,8 @@ posts = [
 id_list = []
 
 for keys in posts:
-     id_list.append(keys['id'])
+    id_list.append(keys['id'])
+
 
 def index(request):
     template = 'blog/index.html'
@@ -58,7 +59,7 @@ def index(request):
 
 
 def post_detail(request, post_id):
-    if post_id in id_list:   
+    if post_id in id_list:
         template = 'blog/detail.html'
         context = {'post': posts[post_id]}
         return render(request, template, context)
