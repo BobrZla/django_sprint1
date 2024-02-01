@@ -46,10 +46,7 @@ posts = [
 ]
 
 
-id_list = []
-
-for keys in posts:
-    id_list.append(keys['id'])
+post_ids = [post['id'] for post in posts]
 
 
 def index(request):
@@ -59,11 +56,11 @@ def index(request):
 
 
 def post_detail(request, post_id):
-    if post_id in id_list:
-        template = 'blog/detail.html'
-        context = {'post': posts[post_id]}
-        return render(request, template, context)
-    raise Http404('Прости, такого поста нет, видимо его еще не написали =(')
+    if post_id not in post_ids:
+        raise Http404('Прости, такого поста нет, видимо его еще не написали =(')
+    template = 'blog/detail.html'
+    context = {'post': posts[post_id]}
+    return render(request, template, context)
 
 
 def category_posts(request, category_slug):
