@@ -57,7 +57,7 @@ def index(request):
 
 def post_detail(request, post_id):
     if post_id not in post_ids:
-        raise Http404('Прости, такого поста нет, видимо его еще не написали =(')
+        raise Http404('Прости, такого поста нет, видимо его еще не написали.')
     template = 'blog/detail.html'
     context = {'post': posts[post_id]}
     return render(request, template, context)
